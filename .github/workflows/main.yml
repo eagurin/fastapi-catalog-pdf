@@ -1,36 +1,65 @@
-# This is a basic workflow to help you get started with Actions
+name: Generate Client
 
-name: CI
-
-# Controls when the workflow will run
+# Runs this action whenever there are any changes to the master branch.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - master
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  client:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Checks out the entire repo.
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    - name: Checks out repo
+      uses: actions/checkout@v1
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    # Generates a openapi.yaml file based on the FastAPI project.
+    - name: Generate OpenAPI file
+      uses: column-street/fastapi-openapi-specs-action@v1.0.0
+      with:
+        moduleDir: collector
+        fileName: main.py
+        appName: app
+        fastapiVersioning: v1
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    # Uses an external tool, openapitools-generator-action, to generate the client code.
+    # The 'openapirc.json' file is the following: { "packageName": "collector", "projectName": "collector" }
+    # and it lives inside the master branch of the repository. Command outputs a new folder called 
+    # 'python-client' with the relevant client code.
+    - name: Generate Python Client
+      uses: triaxtec/openapitools-generator-action@v1.0.0
+      with:
+        generator: python
+        openapi-file: openapi.yaml
+        config-file: openapirc.json
+
+    # Deletes every file in the folder, except '.git' and the new generated 'python-client' folder.
+    # Moves all content of the 'python-client' folder to the root directory.
+    - name: Cleans the branch up.
+      run: |
+        # Removes all files except the .git and python-client folder.
+        shopt -s extglob
+        sudo rm -rf !(.|..|.git|python-client)
+        # Moves all of the content of the python-client folder out, 
+        # and deletes the folder.
+        mv python-client/* .
+        rm -rf python-client
+
+    # Commits the new changes into a new branch called 'client'.
+    - name: Commit changes.
+      run: |
+        git checkout -b client
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Generated client." -a || true 
+
+    # Pushes all of these changes into the GitHub repository.
+    - name: Push changes to client branch
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: client
+        force: True
