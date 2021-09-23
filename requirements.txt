@@ -1,5 +1,6 @@
 fastapi
 uvicorn
+gunicorn
 SQLAlchemy
 pydantic
 databases
@@ -10,3 +11,6 @@ aiosqlite
 pytest
 requests
 flake8
+
+# alembic
+# sqlalchemy_utils

@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table
 from sqlalchemy.ext.declarative import declarative_base
 
-from database import metadata
+from .database import metadata
 
 Base = declarative_base()
 

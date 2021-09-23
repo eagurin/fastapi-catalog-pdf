@@ -1,9 +1,9 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
-import schemas
-from database import database
-from models import categories, sections
+from . import schemas
+from . import database
+from .models import categories, sections
 
 fake_users_db = {
     "test": {

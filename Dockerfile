@@ -5,3 +5,5 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 COPY . /app
+
+CMD gunicorn app.main:api -c gunicorn_config.py
