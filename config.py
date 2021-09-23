@@ -1,4 +1,3 @@
-"""gunicorn server configuration."""
 import os
 
 threads = 2
