@@ -89,4 +89,8 @@ jobs:
         command: |
             sudo docker pull goldmeat/fastapi_test
             sudo docker stop $(sudo docker ps -a -q)
+<<<<<<< HEAD
             sudo docker run --rm -d -p 5000:5000 goldmeat/fastapi_test
+=======
+            sudo docker run --rm -d -p 80:80 goldmeat/fastapi_test
+>>>>>>> db8bb81faf2de789df09c5d7ae43f57238aea211
