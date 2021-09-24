@@ -6,4 +6,4 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-CMD gunicorn app.main:api -c config.py
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
