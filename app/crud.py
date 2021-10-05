@@ -12,7 +12,7 @@ def upload_image(image_file):
             raise HTTPException(
                 status_code=415, detail="Unsupported Media Type"
             )
-        url = "/static/image/" + str(uuid.uuid4()) + "." + image_format
+        url = "static/images/" + str(uuid.uuid4()) + "." + image_format
         with open(url, "wb") as image:
             shutil.copyfileobj(image_file.file, image)
         return url
