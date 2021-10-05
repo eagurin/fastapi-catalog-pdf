@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 gunicorn
-aiofiles
+# aiofiles
 SQLAlchemy
 SQLAlchemy-Utils
 pydantic
