@@ -12,7 +12,7 @@ bcrypt
 python-jose
 python-multipart
 aiosqlite
-flake8
+# flake8
 # crud
 # pytest
 # requests
