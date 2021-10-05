@@ -5,6 +5,7 @@ from . import models
 from .database import engine
 from .routers import auth, category, document, user
 
+
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
