@@ -2,15 +2,19 @@ fastapi
 uvicorn
 gunicorn
 SQLAlchemy
+SQLAlchemy-Utils
 pydantic
 databases
 starlette
-# crud
+passlib
+bcrypt
+python-jose
 python-multipart
 aiosqlite
-pytest
-requests
-flake8
+
+# crud
+# pytest
+# requests
+# flake8
 
 # alembic
-# sqlalchemy_utils

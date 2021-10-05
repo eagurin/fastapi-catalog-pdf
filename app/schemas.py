@@ -1,67 +1,46 @@
-from typing import List, Optional
-
 from pydantic import BaseModel
+from typing import Optional
 
 
-class User(BaseModel):
-    username: str
-    email: Optional[str] = None
-    full_name: Optional[str] = None
-    disabled: Optional[bool] = None
-
-
-class UserInDB(User):
-    hashed_password: str
-
-
-class SectionBase(BaseModel):
-    title: str
-    description: str = None
-
-
-class SectionCreate(SectionBase):
-    pass
-
-
-class Section(SectionBase):
-    id: int
-    category_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class CategoryBase(BaseModel):
+class Category(BaseModel):
     title: str
     subtitle: str
     description: str
+    image: str
+    parent_id: Optional[int] = 0
 
 
-class CategoryCreate(CategoryBase):
-    parent_id: int = 0
-
-    class Config:
+class CategoryShow(BaseModel):
+    title: str
+    
+    class Config():
         orm_mode = True
 
 
-class CategoryInDB(CategoryBase):
-    id: int
 
-    class Config:
+class User(BaseModel):
+    name: str
+    email: str
+    password: str
+
+
+class UserShow(BaseModel):
+    name: str
+    email: str
+    
+    class Config():
         orm_mode = True
 
 
-class Category(CategoryBase):
-    id: int
-    sections: List[Section] = []
-
-    class Config:
-        orm_mode = True
+class Login(BaseModel):
+    username: str
+    password: str
 
 
-class SectionCategory(SectionBase):
-    id: int
-    category_id: CategoryInDB
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
-    class Config:
-        orm_mode = True
+
+class TokenData(BaseModel):
+    email: Optional[str] = None
