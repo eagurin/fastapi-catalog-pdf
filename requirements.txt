@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 gunicorn
-# aiofiles
+aiofiles
 SQLAlchemy
 SQLAlchemy-Utils
 pydantic
@@ -12,7 +12,7 @@ bcrypt
 python-jose
 python-multipart
 aiosqlite
-
+flake8
 # crud
 # pytest
 # requests
