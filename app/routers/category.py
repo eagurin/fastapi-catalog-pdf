@@ -83,7 +83,7 @@ def get_categories(
 @router.get(
     "/categories/{id}", response_model=schemas.CategoryShow, tags=["Category"]
 )
-def get_categories(
+def get_category(
     id: int,
     db: Session = Depends(get_db),
     current_user: schemas.User = Depends(oauth2.get_current_user),
