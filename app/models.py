@@ -1,11 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 
 from .database import Base
 
 
 class Category(Base):
-    __tablename__ = 'categories'
+    __tablename__ = "categories"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
@@ -16,7 +15,7 @@ class Category(Base):
 
 
 class Document(Base):
-    __tablename__ = 'documents'
+    __tablename__ = "documents"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
@@ -25,7 +24,7 @@ class Document(Base):
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, index=True, unique=True)

@@ -13,10 +13,9 @@ class Category(BaseModel):
 
 class CategoryShow(BaseModel):
     title: str
-    
-    class Config():
-        orm_mode = True
 
+    class Config:
+        orm_mode = True
 
 
 class User(BaseModel):
@@ -28,8 +27,8 @@ class User(BaseModel):
 class UserShow(BaseModel):
     name: str
     email: str
-    
-    class Config():
+
+    class Config:
         orm_mode = True
 
 
