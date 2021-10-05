@@ -6,9 +6,10 @@ from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
 from .. import oauth2, schemas
-from ..models import Category
-from ..crud import upload_image, delete_file
+from ..crud import delete_file, upload_image
 from ..database import get_db
+from ..models import Category
+
 router = APIRouter()
 
 
