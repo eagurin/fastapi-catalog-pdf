@@ -13,6 +13,9 @@ class Category(BaseModel):
 
 class CategoryShow(BaseModel):
     title: str
+    subtitle: str
+    description: str
+    image: str
 
     class Config:
         orm_mode = True
