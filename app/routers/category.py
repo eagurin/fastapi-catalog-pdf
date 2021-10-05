@@ -18,7 +18,7 @@ def create_categories(
     title: str,
     subtitle: Optional[str] = None,
     description: Optional[str] = None,
-    image_file: UploadFile = File(...),
+    image_file: UploadFile = File(None),
     parent_id: Optional[int] = None,
     db: Session = Depends(get_db),
     current_user: schemas.User = Depends(oauth2.get_current_user),
