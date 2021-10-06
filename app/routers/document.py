@@ -23,7 +23,7 @@ async def create_document(
 ):
     if not fileb.filename[-3:].lower() == "pdf":
         raise HTTPException(status_code=415, detail="Unsupported Media Type")
-    url = "static/documents/" + str(uuid.uuid4()) + ".pdf"
+    url = "./static/documents/" + str(uuid.uuid4()) + ".pdf"
     with open(url, "wb") as image:
         shutil.copyfileobj(fileb.file, image)
     new_document = Document(name=name, category_id=category_id, url=url)

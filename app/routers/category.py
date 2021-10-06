@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post(
-    "/categories/",
+    "/category/",
     response_model=schemas.CategoryShow,
     status_code=status.HTTP_201_CREATED,
     tags=["Category"],
@@ -41,7 +41,7 @@ def create_category(
 
 
 @router.put(
-    "/categories/{id}/",
+    "/category/{id}/",
     response_model=schemas.CategoryShow,
     status_code=status.HTTP_202_ACCEPTED,
     tags=["Category"],
