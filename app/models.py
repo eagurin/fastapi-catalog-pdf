@@ -7,10 +7,10 @@ class Category(Base):
     __tablename__ = "categories"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True, unique=True)
+    title = Column(String, index=True)
     subtitle = Column(String)
     description = Column(String)
-    image = Column(String, unique=True)
+    image = Column(String)
     parent_id = Column(Integer, index=True)
 
 
@@ -19,7 +19,7 @@ class Document(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    url = Column(String, unique=True)
+    url = Column(String)
     category_id = Column(Integer, index=True)
 
 
@@ -28,5 +28,5 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, index=True, unique=True)
-    name = Column(String, unique=True)
+    name = Column(String)
     password = Column(String)
