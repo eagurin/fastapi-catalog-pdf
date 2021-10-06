@@ -32,7 +32,7 @@ def get_category(
 ):
     category = db.query(Category).filter(Category.id == id).first()
     documents = (
-        db.query(Document).filter(Document.id == id).all()
+        db.query(Document).filter(Document.category_id == id).all()
     )
     child = db.query(Category).filter(Category.parent_id == id).all()
     if not category:
