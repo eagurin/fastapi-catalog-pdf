@@ -18,8 +18,8 @@ def upload_image(image_file):
         return url
 
 
-def delete_file(url: str):
-    if os.path.isfile(url):
+def delete_file(url):
+    try:
         os.remove(url)
-    else:
-        raise HTTPException(status_code=404, detail="File not found")
+    except:
+        return

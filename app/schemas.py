@@ -1,6 +1,14 @@
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
+
+
+class DocumentsShow(BaseModel):
+    name: Optional[str] = None
+    url: Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 
 class Category(BaseModel):
@@ -11,11 +19,34 @@ class Category(BaseModel):
     parent_id: Optional[int] = 0
 
 
+class ParentCategory(BaseModel):
+    title: str
+    subtitle: Optional[str] = None
+    image: Optional[str] = None
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
 class CategoryShow(BaseModel):
     title: str
-    subtitle: str
-    description: str
-    image: str
+    subtitle: Optional[str] = None
+    description: Optional[str] = None
+    parent_id: Optional[str] = None
+    image: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryShow2(BaseModel):
+    title: str
+    subtitle: Optional[str] = None
+    description: Optional[str] = None
+    image: Optional[str] = None
+    documents: List[DocumentsShow] = []
+    child: List[ParentCategory] = []
 
     class Config:
         orm_mode = True

@@ -9,6 +9,7 @@ from .. import oauth2
 from ..database import get_db
 from ..models import Document, User
 
+
 router = APIRouter()
 
 
@@ -32,7 +33,7 @@ async def create_document(
     return new_document
 
 
-@router.delete("/documents/{id}", tags=["Document"])
+@router.delete("/documents/", tags=["Document"])
 async def destroy_document(
     id: int,
     db: Session = Depends(get_db),

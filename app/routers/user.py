@@ -3,11 +3,12 @@ from sqlalchemy.orm import Session
 
 from .. import database, hashing, models, schemas
 
+
 router = APIRouter()
 
 
 @router.post(
-    "/user",
+    "/user/",
     status_code=status.HTTP_201_CREATED,
     response_model=schemas.UserShow,
     tags=["User"],
