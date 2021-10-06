@@ -1,8 +1,7 @@
 .idea
 env
-sql_app.db
+# sql_app.db
 __pycache__
-env
 .DS_Store
 .vscode
 .pytest_cache

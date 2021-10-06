@@ -14,6 +14,6 @@ models.Base.metadata.create_all(engine)
 
 app.include_router(auth.router)
 app.include_router(catalog.router)
-app.include_router(document.router)
 app.include_router(category.router)
+app.include_router(document.router)
 app.include_router(user.router)

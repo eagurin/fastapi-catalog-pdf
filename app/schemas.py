@@ -33,7 +33,6 @@ class CategoryShow(BaseModel):
     title: str
     subtitle: Optional[str] = None
     description: Optional[str] = None
-    parent_id: Optional[str] = None
     image: Optional[str] = None
 
     class Config:
