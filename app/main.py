@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 
 from . import models
 from .database import engine
-from .routers import auth, catalog, category, document, user
+from .routers import auth, catalog, category, document, user, feedback
 
 
 app = FastAPI()
@@ -16,4 +16,5 @@ app.include_router(auth.router)
 app.include_router(catalog.router)
 app.include_router(category.router)
 app.include_router(document.router)
+app.include_router(feedback.router)
 app.include_router(user.router)

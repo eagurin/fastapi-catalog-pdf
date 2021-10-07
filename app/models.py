@@ -30,3 +30,13 @@ class User(Base):
     email = Column(String, index=True, unique=True)
     name = Column(String)
     password = Column(String)
+
+
+class Feedback(Base):
+    __tablename__ = 'feedbacks'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String, index=True)
+    subtitle = Column(String)
+    description = Column(String)
+    url = Column(String)

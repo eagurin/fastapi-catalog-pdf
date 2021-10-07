@@ -1,23 +1,20 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi import status as sc
 from sqlalchemy.orm import Session
 
-from .. import oauth2, schemas
 from ..crud import delete_file, upload_image
 from ..database import get_db
 from ..models import Category
+from ..oauth2 import get_current_user
+from ..schemas import CategoryShow, User
 
 
-router = APIRouter()
+router = APIRouter(prefix="/category", tags=["Category"])
 
 
-@router.post(
-    "/category/",
-    response_model=schemas.CategoryShow,
-    status_code=status.HTTP_201_CREATED,
-    tags=["Category"],
-)
+@router.post("/", response_model=CategoryShow, status_code=sc.HTTP_201_CREATED)
 def create_category(
     title: str,
     subtitle: Optional[str] = None,
@@ -25,27 +22,24 @@ def create_category(
     parent_id: Optional[int] = None,
     image_file: UploadFile = File(None),
     db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    u: User = Depends(get_current_user),
 ):
-    new_category = Category(
+    response = Category(
         title=title,
         subtitle=subtitle,
         description=description,
         image=upload_image(image_file),
         parent_id=parent_id,
     )
-    db.add(new_category)
+
+    db.add(response)
     db.commit()
-    db.refresh(new_category)
-    return new_category
+    db.refresh(response)
+
+    return response
 
 
-@router.put(
-    "/category/{id}/",
-    response_model=schemas.CategoryShow,
-    status_code=status.HTTP_202_ACCEPTED,
-    tags=["Category"],
-)
+@router.put("/{id}/", response_model=CategoryShow, status_code=202)
 def edit_categories(
     id: int,
     title: Optional[str] = None,
@@ -54,25 +48,27 @@ def edit_categories(
     image_file: UploadFile = File(None),
     parent_id: Optional[int] = None,
     db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(oauth2.get_current_user),
+    u: User = Depends(get_current_user),
 ):
     request = db.query(Category).filter(Category.id == id)
+
     if not request.first():
         raise HTTPException(status_code=404, detail="Category not found")
-    temp = dict()
+
+    response = dict()
     if title:
-        temp.update({"title": title})
+        response.update({"title": title})
     if subtitle:
-        temp.update({"subtitle": subtitle})
+        response.update({"subtitle": subtitle})
     if description:
-        temp.update({"description": description})
-    if image_file:
-        old_image = request.first().image
-        if old_image:
-            delete_file(old_image)
-        temp.update({"image": upload_image(image_file)})
+        response.update({"description": description})
     if parent_id:
-        temp.update({"parent_id": parent_id})
-    request.update(temp)
+        response.update({"parent_id": parent_id})
+    if image_file:
+        delete_file(request.first().image)
+        response.update({"image": upload_image(image_file)})
+
+    request.update(response)
     db.commit()
+
     return request.first()

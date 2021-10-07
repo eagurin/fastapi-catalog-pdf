@@ -1,7 +1,9 @@
 .idea
 env
-# sql_app.db
 __pycache__
 .DS_Store
 .vscode
 .pytest_cache
+sql_app.db
+static/documents/*
+static/images/*
