@@ -5,5 +5,5 @@ __pycache__
 .vscode
 .pytest_cache
 sql_app.db
-static/documents/*
-static/images/*
+static/documents/**
+static/images/**
